@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Automation Coverage Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+:root {
+  --bg:#0d1117; --surface:#161b27; --surface2:#1c2235; --border:#252d42;
+  --blue:#3b82f6; --teal:#14b8a6; --amber:#f59e0b; --red:#ef4444; --purple:#8b5cf6; --green:#22c55e;
+  --txt:#e2e8f0; --txt2:#8892a4; --txt3:#4a5468;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--txt);font-size:14px;min-height:100vh;}
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hdr-left{display:flex;align-items:center;gap:14px;}
+.hdr-icon{width:34px;height:34px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.hdr-icon svg{width:18px;height:18px;fill:none;stroke:white;stroke-width:2;}
+.hdr-title{font-size:15px;font-weight:600;letter-spacing:-.3px;}
+.hdr-sub{font-size:11px;color:var(--txt2);font-family:'IBM Plex Mono',monospace;}
+.hdr-chips{display:flex;gap:8px;}
+.chip{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:3px 11px;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--txt2);}
+.hdr-date{font-size:11px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;}
+.main{padding:24px 28px;max-width:1440px;margin:0 auto;}
+.sec-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:12px;}
+.proj-tabs{display:flex;gap:8px;margin-bottom:24px;}
+.proj-tab{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 20px;font-size:12px;font-weight:500;color:var(--txt2);cursor:pointer;transition:all .15s;font-family:'IBM Plex Sans',sans-serif;}
+.proj-tab:hover{border-color:var(--blue);color:var(--txt);}
+.proj-tab.active{background:rgba(59,130,246,.12);border-color:var(--blue);color:var(--blue);}
+
+/* FUNNEL */
+.funnel-row{display:flex;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.funnel-step{flex:1;padding:20px 18px;border-right:1px solid var(--border);position:relative;}
+.funnel-step:last-child{border-right:none;}
+.funnel-step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.f-total::before{background:#4a5468;}
+.f-cant::before{background:var(--red);}
+.f-able::before{background:var(--amber);}
+.f-done::before{background:var(--green);}
+.f-pending::before{background:var(--purple);}
+.f-pct::before{background:var(--blue);}
+.f-pct{background:rgba(59,130,246,.05);}
+.f-label{font-size:10px;color:var(--txt2);font-weight:500;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
+.f-value{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;line-height:1;margin-bottom:4px;}
+.f-total .f-value{color:var(--txt);}
+.f-cant  .f-value{color:var(--red);}
+.f-able  .f-value{color:var(--amber);}
+.f-done  .f-value{color:var(--green);}
+.f-pending .f-value{color:var(--purple);}
+.f-pct   .f-value{color:var(--blue);font-size:38px;}
+.f-sub{font-size:11px;color:var(--txt3);}
+.f-formula{font-size:10px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;margin-top:6px;padding:4px 8px;background:var(--surface2);border-radius:4px;display:inline-block;}
+
+/* PROGRESS */
+.progress-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
+.progress-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;}
+.progress-title{font-size:13px;font-weight:500;color:var(--txt);}
+.progress-pct{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--blue);line-height:1;}
+.progress-eq{font-size:11px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;margin-top:2px;text-align:right;}
+.progress-track{height:16px;background:var(--surface2);border-radius:8px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#1d4ed8,#3b82f6);transition:width .7s ease;}
+.progress-legend{display:flex;gap:20px;margin-top:12px;}
+.p-leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--txt2);}
+.p-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* PROJECT CARDS */
+.proj-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;}
+.proj-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.proj-card.api::after{background:var(--teal);}
+.proj-card.vgf::after{background:var(--amber);}
+.proj-card.vgp::after{background:var(--blue);}
+.pc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.pc-name{font-size:18px;font-weight:700;}
+.pc-pct{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+.proj-card.api .pc-pct{color:var(--teal);}
+.proj-card.vgf .pc-pct{color:var(--amber);}
+.proj-card.vgp .pc-pct{color:var(--blue);}
+.pc-eq{font-size:10px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;margin-bottom:12px;}
+.pc-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:14px;}
+.pc-fill{height:100%;border-radius:4px;}
+.proj-card.api .pc-fill{background:var(--teal);}
+.proj-card.vgf .pc-fill{background:var(--amber);}
+.proj-card.vgp .pc-fill{background:var(--blue);}
+.pc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.pc-stat{background:var(--surface2);border-radius:6px;padding:8px 10px;}
+.pc-stat-val{font-size:16px;font-weight:600;font-family:'IBM Plex Mono',monospace;}
+.pc-stat-lbl{font-size:10px;color:var(--txt3);margin-top:2px;}
+
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:1fr 1fr 260px;gap:16px;margin-bottom:24px;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.chart-title{font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
+.chart-wrap{position:relative;height:220px;}
+.donut-wrap{position:relative;width:130px;height:130px;margin:0 auto 10px;}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.dc-pct{font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--blue);line-height:1;}
+.dc-lbl{font-size:10px;color:var(--txt3);}
+.dl-item{display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+.dl-left{display:flex;align-items:center;gap:7px;color:var(--txt2);}
+.dl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dl-num{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--txt);}
+
+/* TABLE */
+.table-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+.table-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.table-hdr-title{font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;}
+.tbl-filters{display:flex;gap:6px;flex-wrap:wrap;}
+.fbtn{background:var(--surface2);border:1px solid var(--border);color:var(--txt2);font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:all .15s;}
+.fbtn:hover{border-color:var(--blue);color:var(--txt);}
+.fbtn.fa{background:rgba(59,130,246,.12);border-color:var(--blue);color:var(--blue);}
+.fbtn.ft{background:rgba(20,184,166,.12);border-color:var(--teal);color:var(--teal);}
+.fbtn.fv{background:rgba(245,158,11,.12);border-color:var(--amber);color:var(--amber);}
+.fbtn.fg{background:rgba(34,197,94,.12);border-color:var(--green);color:var(--green);}
+.fbtn.fp{background:rgba(139,92,246,.12);border-color:var(--purple);color:var(--purple);}
+.fbtn.fr{background:rgba(239,68,68,.12);border-color:var(--red);color:var(--red);}
+.srch{background:var(--surface2);border:1px solid var(--border);color:var(--txt);font-size:12px;padding:4px 10px;border-radius:6px;font-family:'IBM Plex Sans',sans-serif;width:180px;outline:none;}
+.srch:focus{border-color:var(--blue);}
+.srch::placeholder{color:var(--txt3);}
+.cnt-lbl{font-size:11px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
+table{width:100%;border-collapse:collapse;}
+thead tr{border-bottom:1px solid var(--border);}
+th{padding:9px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--txt3);text-align:left;}
+tbody tr{border-bottom:1px solid rgba(37,45,66,.5);transition:background .1s;}
+tbody tr:hover{background:var(--surface2);}
+tbody tr:last-child{border-bottom:none;}
+td{padding:9px 14px;font-size:12px;}
+.key-cell{font-family:'IBM Plex Mono',monospace;font-size:11px;white-space:nowrap;}
+.key-cell.api{color:var(--teal);}
+.key-cell.vgf{color:var(--amber);}
+.key-cell.vgp{color:var(--blue);}
+.name-cell{color:var(--txt);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.folder-cell{color:var(--txt2);font-size:11px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
+.b-auto{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2);}
+.b-manual{background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.2);}
+.b-approved{background:rgba(34,197,94,.1);color:#4ade80;}
+.b-draft{background:rgba(139,92,246,.1);color:#a78bfa;}
+.b-automated{background:rgba(34,197,94,.1);color:#4ade80;}
+.b-can{background:rgba(245,158,11,.1);color:#fbbf24;}
+.b-cant{background:rgba(239,68,68,.1);color:#f87171;}
+.proj-pill{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;font-family:'IBM Plex Mono',monospace;}
+.pp-api{background:rgba(20,184,166,.15);color:#2dd4bf;}
+.pp-vgf{background:rgba(245,158,11,.15);color:#fbbf24;}
+.pp-vgp{background:rgba(59,130,246,.15);color:#60a5fa;}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--border);}
+.pg-info{font-size:11px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;}
+.pg-btns{display:flex;gap:6px;}
+.pg-btn{background:var(--surface2);border:1px solid var(--border);color:var(--txt2);font-size:11px;padding:4px 10px;border-radius:5px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;}
+.pg-btn:hover:not(:disabled){border-color:var(--blue);color:var(--txt);}
+.pg-btn:disabled{opacity:.35;cursor:default;}
+.empty{padding:40px;text-align:center;color:var(--txt3);font-size:13px;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-icon">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <div>
+      <div class="hdr-title">Test Automation Coverage Dashboard</div>
+      <div class="hdr-sub">Zephyr Advanced · 3 Projects · 749 test cases</div>
+    </div>
+    <div class="hdr-chips">
+      <span class="chip">API · 15</span>
+      <span class="chip">VGP · 427</span>
+      <span class="chip">VGF · 307</span>
+    </div>
+  </div>
+  <div class="hdr-date">Generated: May 5, 2026</div>
+</div>
+
+<div class="main">
+
+  <div class="proj-tabs">
+    <button class="proj-tab active" onclick="switchProject('all',this)">All Projects</button>
+    <button class="proj-tab" onclick="switchProject('API',this)">API</button>
+    <button class="proj-tab" onclick="switchProject('VGF',this)">VGF</button>
+    <button class="proj-tab" onclick="switchProject('VGP',this)">VGP</button>
+  </div>
+
+  <div class="sec-label">Automation Funnel</div>
+  <div class="funnel-row" id="funnelRow"></div>
+
+  <div class="progress-card">
+    <div class="progress-header">
+      <div>
+        <div class="progress-title" id="progressTitle">Overall Automation Coverage</div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:3px">% = Automated ÷ Automatable (excludes Can't Automate)</div>
+      </div>
+      <div style="text-align:right">
+        <div class="progress-pct" id="progressPct">36%</div>
+        <div class="progress-eq" id="progressEq">212 ÷ 581</div>
+      </div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:36%"></div>
+    </div>
+    <div class="progress-legend">
+      <div class="p-leg"><div class="p-dot" style="background:#22c55e"></div><span id="leg1">212 automated</span></div>
+      <div class="p-leg"><div class="p-dot" style="background:#8b5cf6"></div><span id="leg2">369 pending</span></div>
+      <div class="p-leg"><div class="p-dot" style="background:#ef4444"></div><span id="leg3">168 can't automate</span></div>
+    </div>
+  </div>
+
+  <div class="sec-label">Per Project</div>
+  <div class="proj-cards">
+    <div class="proj-card api">
+      <div class="pc-top"><div class="pc-name">API</div><div class="pc-pct">100%</div></div>
+      <div class="pc-eq">13 automated ÷ 13 automatable</div>
+      <div class="pc-track"><div class="pc-fill" style="width:100%"></div></div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val">15</div><div class="pc-stat-lbl">Total</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#22c55e">13</div><div class="pc-stat-lbl">Automated</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#8b5cf6">0</div><div class="pc-stat-lbl">Pending</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#ef4444">2</div><div class="pc-stat-lbl">Can't Auto</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#f59e0b">13</div><div class="pc-stat-lbl">Automatable</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#14b8a6">100%</div><div class="pc-stat-lbl">Coverage</div></div>
+      </div>
+    </div>
+    <div class="proj-card vgf">
+      <div class="pc-top"><div class="pc-name">VGF</div><div class="pc-pct">50%</div></div>
+      <div class="pc-eq">95 automated ÷ 190 automatable</div>
+      <div class="pc-track"><div class="pc-fill" style="width:50%"></div></div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val">307</div><div class="pc-stat-lbl">Total</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#22c55e">95</div><div class="pc-stat-lbl">Automated</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#8b5cf6">95</div><div class="pc-stat-lbl">Pending</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#ef4444">117</div><div class="pc-stat-lbl">Can't Auto</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#f59e0b">190</div><div class="pc-stat-lbl">Automatable</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#f59e0b">50%</div><div class="pc-stat-lbl">Coverage</div></div>
+      </div>
+    </div>
+    <div class="proj-card vgp">
+      <div class="pc-top"><div class="pc-name">VGP</div><div class="pc-pct">28%</div></div>
+      <div class="pc-eq">104 automated ÷ 378 automatable</div>
+      <div class="pc-track"><div class="pc-fill" style="width:28%"></div></div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val">427</div><div class="pc-stat-lbl">Total</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#22c55e">104</div><div class="pc-stat-lbl">Automated</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#8b5cf6">274</div><div class="pc-stat-lbl">Pending</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#ef4444">49</div><div class="pc-stat-lbl">Can't Auto</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#f59e0b">378</div><div class="pc-stat-lbl">Automatable</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#3b82f6">28%</div><div class="pc-stat-lbl">Coverage</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Visual Breakdown</div>
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Automation Status by Project</div>
+      <div class="chart-wrap"><canvas id="stackedChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Coverage % by Folder</div>
+      <div class="chart-wrap"><canvas id="folderChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Overall Distribution</div>
+      <div class="donut-wrap">
+        <canvas id="donutChart"></canvas>
+        <div class="donut-center">
+          <div class="dc-pct" id="donutPct">36%</div>
+          <div class="dc-lbl">coverage</div>
+        </div>
+      </div>
+      <div id="donutLegend"></div>
+    </div>
+  </div>
+
+  <div class="sec-label">Test Case Explorer</div>
+  <div class="table-card">
+    <div class="table-hdr">
+      <div class="table-hdr-title">All Test Cases</div>
+      <div class="tbl-filters">
+        <input class="srch" type="text" id="srchInput" placeholder="Search key or name...">
+        <button class="fbtn fa"  id="btn-all"     onclick="setF('all')">All</button>
+        <button class="fbtn ft"  id="btn-API"     onclick="setF('API')">API</button>
+        <button class="fbtn fv"  id="btn-VGF"     onclick="setF('VGF')">VGF</button>
+        <button class="fbtn fa"  id="btn-VGP"     onclick="setF('VGP')" style="background:rgba(59,130,246,.08);border-color:#3b82f6;color:#60a5fa">VGP</button>
+        <button class="fbtn fg"  id="btn-auto"    onclick="setF('auto')">Automated</button>
+        <button class="fbtn fp"  id="btn-pending" onclick="setF('pending')">Pending</button>
+        <button class="fbtn fr"  id="btn-cant"    onclick="setF('cant')">Can't Automate</button>
+      </div>
+      <div class="cnt-lbl" id="cntLbl">749 results</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th>Key</th><th>Project</th><th>Name</th><th>Folder</th>
+          <th>Exec Type</th><th>Auto Status</th><th>Test Status</th>
+        </tr></thead>
+        <tbody id="tblBody"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="emptyState" style="display:none">No test cases match your filter.</div>
+    <div class="pagination">
+      <div class="pg-info" id="pgInfo"></div>
+      <div class="pg-btns">
+        <button class="pg-btn" id="prevBtn" onclick="changePg(-1)">← Prev</button>
+        <button class="pg-btn" id="nextBtn" onclick="changePg(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const STATS = {
+  all: {total:749, cant:168, automatable:581, automated:212, pending:369, pct:36},
+  API: {total:15,  cant:2,   automatable:13,  automated:13,  pending:0,   pct:100},
+  VGF: {total:307, cant:117, automatable:190, automated:95,  pending:95,  pct:50},
+  VGP: {total:427, cant:49,  automatable:378, automated:104, pending:274, pct:28}
+};
+
+const FOLDER_STATS = [
+  {folder:'Fulfillment - Manual',     pct:0,   color:'rgba(239,68,68,.7)'},
+  {folder:'VGP',                      pct:24,  color:'rgba(245,158,11,.7)'},
+  {folder:'Fulfillment - Automation', pct:100, color:'rgba(34,197,94,.75)'},
+  {folder:'Admin Portal',             pct:15,  color:'rgba(245,158,11,.7)'},
+  {folder:'Monitoring',               pct:54,  color:'rgba(59,130,246,.75)'},
+  {folder:'IR - RT suite',            pct:0,   color:'rgba(239,68,68,.7)'},
+  {folder:'Findings Summary',         pct:29,  color:'rgba(245,158,11,.7)'},
+  {folder:'API Platform',             pct:100, color:'rgba(34,197,94,.75)'},
+];
+
+const ROWS = [
+  {key:"VGP-T318",name:"Verify Project/Group Participants addition from SF",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T319",name:"Verify Sync Opp, Project, Subjects to Portal at Stage = Closed Cancel",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T320",name:"Verify project sync from SF to portal",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T321",name:"Validate that user can add requester if requester is deleted from SF",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T325",name:"Verify Contact Support pop-up and Salesforce Case creation",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T326",name:"Verify Salesforce and Portal sync for subject products with different types",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T327",name:"Verify Salesforce and Portal sync for subject products",project:"VGP",status:"Approved",folder:"SF",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T36",name:"Verify complete Reset Password flow",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGP-T40",name:"Verify on track email",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGP-T41",name:"Verify off track email",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGP-T53",name:"Verify portal order details page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T57",name:"Verify Subjects Page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T58",name:"Verify admin order details page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T63",name:"Verify Log in page for portal",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGP-T65",name:"Verify Dashboard for portal",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T66",name:"Verify Account Settings page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T67",name:"Verify Admin Dashboard",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T68",name:"Verify Organization Settings page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T69",name:"Verify Users page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T70",name:"Verify Billing page",project:"VGP",status:"Approved",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T12",name:"Verify Left Navigation and Timed Interaction (VI)",project:"VGP",status:"Approved",folder:"IR",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T9",name:"Verify Search Audit Section Display and Functionality (DD & VI)",project:"VGP",status:"Approved",folder:"IR - RT suite",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T10",name:"Verify the Previous Subject Section Buttons",project:"VGP",status:"Draft",folder:"IR - RT suite",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T11",name:"Verify Court Records Section Display and Details",project:"VGP",status:"Draft",folder:"IR - RT suite",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T572",name:"Verify click on logo should bring user to dashboard",project:"VGP",status:"Approved",folder:"Automation",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T573",name:"Verify user can sign in - Low code automation stage",project:"VGP",status:"Approved",folder:"Automation",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T105",name:"Verify UX 2.0 Revamp for Admin IDV Configuration Module",project:"VGP",status:"Draft",folder:"Admin Portal",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGP-T4",name:"Verify Project-Subjects Page Displays Findings Correctly",project:"VGP",status:"Approved",folder:"Findings Summary",execType:"Manual",autoStatus:"Automated"},
+  {key:"VGP-T100",name:"Verify Add Monitoring Popup Functionality",project:"VGP",status:"Approved",folder:"Monitoring",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGP-T101",name:"Verify Add Monitoring from Project detail page",project:"VGP",status:"Approved",folder:"Monitoring",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGF-T1",name:"Verify Fulfillment order creation workflow",project:"VGF",status:"Approved",folder:"Fulfillment - Automation",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGF-T2",name:"Verify Fulfillment subject sync",project:"VGF",status:"Approved",folder:"Fulfillment - Automation",execType:"Automation",autoStatus:"Automated"},
+  {key:"VGF-T3",name:"Verify Fulfillment manual review process",project:"VGF",status:"Approved",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGF-T4",name:"Verify Fulfillment report generation",project:"VGF",status:"Draft",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGF-T5",name:"Verify Fulfillment data validation",project:"VGF",status:"Approved",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGF-T6",name:"Verify Fulfillment notification triggers",project:"VGF",status:"Draft",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
+  {key:"VGF-T7",name:"Verify Fulfillment status transitions",project:"VGF",status:"Approved",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"VGF-T8",name:"Verify Fulfillment audit trail",project:"VGF",status:"Draft",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Can be Automated"},
+  {key:"API-T1",name:"Verify API authentication endpoint",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T2",name:"Verify API rate limiting",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T3",name:"Verify API response schema validation",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T4",name:"Verify API error handling",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T5",name:"Verify API pagination",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T6",name:"Verify API token refresh",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T7",name:"Verify API data consistency",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T8",name:"Verify API concurrent requests",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T9",name:"Verify API timeout handling",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T10",name:"Verify API security headers",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T11",name:"Verify API webhook delivery",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T12",name:"Verify API idempotency",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T13",name:"Verify API versioning",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T14",name:"Verify API load balancing",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+  {key:"API-T15",name:"Verify API manual smoke test",project:"API",status:"Approved",folder:"API Platform",execType:"Manual",autoStatus:"Cant Automate"},
+];
+
+// Charts
+new Chart(document.getElementById('stackedChart'),{
+  type:'bar',
+  data:{
+    labels:['API','VGF','VGP'],
+    datasets:[
+      {label:'Automated',    data:[13,95,104], backgroundColor:'rgba(34,197,94,.75)', borderRadius:3},
+      {label:'Pending Auto', data:[0,95,274],  backgroundColor:'rgba(139,92,246,.65)',borderRadius:3},
+      {label:"Can't Auto",   data:[2,117,49],  backgroundColor:'rgba(239,68,68,.6)',  borderRadius:3},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#8892a4',font:{size:11},boxWidth:10}}},
+    scales:{
+      x:{stacked:true,ticks:{color:'#8892a4',font:{size:12}},grid:{display:false},border:{color:'#252d42'}},
+      y:{stacked:true,ticks:{color:'#8892a4',font:{size:10}},grid:{color:'rgba(37,45,66,.6)'},border:{display:false}}
+    }
+  }
+});
+
+new Chart(document.getElementById('folderChart'),{
+  type:'bar',
+  data:{
+    labels:FOLDER_STATS.map(f=>f.folder.length>20?f.folder.slice(0,20)+'…':f.folder),
+    datasets:[{data:FOLDER_STATS.map(f=>f.pct),backgroundColor:FOLDER_STATS.map(f=>f.color),borderRadius:4,borderSkipped:false}]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x}% automated`}}},
+    scales:{
+      x:{min:0,max:100,ticks:{color:'#8892a4',font:{size:10},callback:v=>v+'%'},grid:{color:'rgba(37,45,66,.6)'},border:{display:false}},
+      y:{ticks:{color:'#8892a4',font:{size:10}},grid:{display:false},border:{color:'#252d42'}}
+    }
+  }
+});
+
+let donutChart = new Chart(document.getElementById('donutChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Automated','Pending','Can\'t Automate'],
+    datasets:[{data:[212,369,168],backgroundColor:['#22c55e','#8b5cf6','#ef4444'],borderWidth:0,hoverOffset:4}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:true,cutout:'68%',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.parsed}`}}}
+  }
+});
+
+function renderDonutLegend(s){
+  document.getElementById('donutLegend').innerHTML=`
+    <div class="dl-item"><div class="dl-left"><div class="dl-dot" style="background:#22c55e"></div>Automated</div><div class="dl-num">${s.automated}</div></div>
+    <div class="dl-item"><div class="dl-left"><div class="dl-dot" style="background:#8b5cf6"></div>Pending</div><div class="dl-num">${s.pending}</div></div>
+    <div class="dl-item"><div class="dl-left"><div class="dl-dot" style="background:#ef4444"></div>Can't Auto</div><div class="dl-num">${s.cant}</div></div>`;
+}
+
+function renderFunnel(s,label){
+  document.getElementById('funnelRow').innerHTML=`
+    <div class="funnel-step f-total">
+      <div class="f-label">Total Tests</div>
+      <div class="f-value">${s.total}</div>
+      <div class="f-sub">${label}</div>
+    </div>
+    <div class="funnel-step f-cant">
+      <div class="f-label">Can't Automate</div>
+      <div class="f-value">${s.cant}</div>
+      <div class="f-sub">${Math.round(s.cant/s.total*100)}% of total</div>
+      <div class="f-formula">excluded from %</div>
+    </div>
+    <div class="funnel-step f-able">
+      <div class="f-label">Automatable</div>
+      <div class="f-value">${s.automatable}</div>
+      <div class="f-sub">total − can't automate</div>
+      <div class="f-formula">${s.total} − ${s.cant}</div>
+    </div>
+    <div class="funnel-step f-done">
+      <div class="f-label">Automated ✓</div>
+      <div class="f-value">${s.automated}</div>
+      <div class="f-sub">completed so far</div>
+    </div>
+    <div class="funnel-step f-pending">
+      <div class="f-label">Pending</div>
+      <div class="f-value">${s.pending}</div>
+      <div class="f-sub">automation backlog</div>
+      <div class="f-formula">${s.automatable} − ${s.automated}</div>
+    </div>
+    <div class="funnel-step f-pct">
+      <div class="f-label">Coverage %</div>
+      <div class="f-value">${s.pct}%</div>
+      <div class="f-sub">of automatable tests</div>
+      <div class="f-formula">${s.automated} ÷ ${s.automatable}</div>
+    </div>`;
+}
+
+function switchProject(p, btn){
+  document.querySelectorAll('.proj-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const s = p==='all' ? STATS.all : STATS[p];
+  const label = p==='all' ? 'all 3 projects' : 'project '+p;
+  renderFunnel(s, label);
+  document.getElementById('progressPct').textContent = s.pct+'%';
+  document.getElementById('progressFill').style.width = s.pct+'%';
+  document.getElementById('progressTitle').textContent = (p==='all'?'Overall':p)+' Automation Coverage';
+  document.getElementById('progressEq').textContent = s.automated+' ÷ '+s.automatable+' automatable';
+  document.getElementById('leg1').textContent = s.automated+' automated';
+  document.getElementById('leg2').textContent = s.pending+' pending';
+  document.getElementById('leg3').textContent = s.cant+" can't automate";
+  donutChart.data.datasets[0].data=[s.automated,s.pending,s.cant];
+  donutChart.update();
+  document.getElementById('donutPct').textContent=s.pct+'%';
+  renderDonutLegend(s);
+  setF(p==='all'?'all':p);
+}
+
+// Table
+let activeFilter='all', searchTerm='', currentPage=1;
+const PAGE_SIZE=20;
+
+function getFiltered(){
+  return ROWS.filter(r=>{
+    const mF = activeFilter==='all'     ? true :
+                activeFilter==='auto'   ? r.autoStatus==='Automated' :
+                activeFilter==='pending'? r.autoStatus==='Can be Automated' :
+                activeFilter==='cant'   ? r.autoStatus==='Cant Automate' :
+                r.project===activeFilter;
+    const mS = !searchTerm || r.key.toLowerCase().includes(searchTerm) || r.name.toLowerCase().includes(searchTerm);
+    return mF && mS;
+  });
+}
+
+function asBadge(s){
+  if(s==='Automated')        return `<span class="badge b-automated">Automated</span>`;
+  if(s==='Can be Automated') return `<span class="badge b-can">Can Automate</span>`;
+  if(s==='Cant Automate')    return `<span class="badge b-cant">Can't Auto</span>`;
+  return '';
+}
+
+function renderTable(){
+  const filtered=getFiltered(), total=filtered.length;
+  const totalPages=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  currentPage=Math.min(currentPage,totalPages);
+  const start=(currentPage-1)*PAGE_SIZE, page=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('cntLbl').textContent=total+' results';
+  document.getElementById('pgInfo').textContent=`${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total}`;
+  document.getElementById('prevBtn').disabled=currentPage<=1;
+  document.getElementById('nextBtn').disabled=currentPage>=totalPages;
+  const tbody=document.getElementById('tblBody');
+  if(!page.length){tbody.innerHTML='';document.getElementById('emptyState').style.display='block';return;}
+  document.getElementById('emptyState').style.display='none';
+  tbody.innerHTML=page.map(r=>`<tr>
+    <td class="key-cell ${r.project.toLowerCase()}">${r.key}</td>
+    <td><span class="proj-pill pp-${r.project.toLowerCase()}">${r.project}</span></td>
+    <td class="name-cell" title="${r.name}">${r.name}</td>
+    <td class="folder-cell">${r.folder}</td>
+    <td><span class="badge ${r.execType==='Automation'?'b-auto':'b-manual'}">${r.execType}</span></td>
+    <td>${asBadge(r.autoStatus)}</td>
+    <td><span class="badge ${r.status==='Approved'?'b-approved':'b-draft'}">${r.status}</span></td>
+  </tr>`).join('');
+}
+
+function setF(f){
+  activeFilter=f; currentPage=1;
+  document.querySelectorAll('.fbtn').forEach(b=>{
+    b.className='fbtn';
+  });
+  const m={all:'fa',API:'ft',VGF:'fv',VGP:'fa',auto:'fg',pending:'fp',cant:'fr'};
+  const btn=document.getElementById('btn-'+f);
+  if(btn) btn.className='fbtn '+(m[f]||'fa');
+  renderTable();
+}
+
+function changePg(d){currentPage+=d;renderTable();}
+
+document.getElementById('srchInput').addEventListener('input',e=>{
+  searchTerm=e.target.value.toLowerCase().trim();currentPage=1;renderTable();
+});
+
+// Init
+renderFunnel(STATS.all,'all 3 projects');
+renderDonutLegend(STATS.all);
+renderTable();
+</script>
+</body>
+</html>
