@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +8,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
-:root{--bg:#0d1117;--surface:#161b27;--surface2:#1c2235;--border:#252d42;
-  --blue:#3b82f6;--teal:#14b8a6;--amber:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--green:#22c55e;--orange:#f97316;
-  --txt:#e2e8f0;--txt2:#8892a4;--txt3:#4a5468;}
+:root{--bg:#0d1117;--surface:#161b27;--surface2:#1c2235;--border:#252d42;--blue:#3b82f6;--teal:#14b8a6;--amber:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--green:#22c55e;--orange:#f97316;--txt:#e2e8f0;--txt2:#8892a4;--txt3:#4a5468;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--txt);font-size:14px;}
-
-/* HEADER */
 .hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .hdr-left{display:flex;align-items:center;gap:14px;}
 .hdr-icon{width:34px;height:34px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;}
@@ -24,35 +21,25 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--txt
 .chip{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--txt2);}
 .chip.hi{border-color:var(--blue);color:var(--blue);background:rgba(59,130,246,.1);}
 .hdr-date{font-size:11px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
-
-/* LAYOUT */
 .main{padding:24px 28px;max-width:1480px;margin:0 auto;}
 .sec-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:12px;margin-top:4px;}
-
-/* TABS */
 .tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
 .tab{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 18px;font-size:12px;font-weight:500;color:var(--txt2);cursor:pointer;transition:all .15s;font-family:'IBM Plex Sans',sans-serif;}
 .tab:hover{border-color:var(--blue);color:var(--txt);}
 .tab.active{background:rgba(59,130,246,.12);border-color:var(--blue);color:var(--blue);}
-
-/* FUNNEL */
 .funnel-row{display:flex;margin-bottom:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
 .fs{flex:1;padding:18px 16px;border-right:1px solid var(--border);position:relative;}
 .fs:last-child{border-right:none;}
 .fs::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.fs-total::before{background:#4a5468;} .fs-cant::before{background:var(--red);}
-.fs-able::before{background:var(--amber);} .fs-done::before{background:var(--green);}
-.fs-pending::before{background:var(--purple);} .fs-pct::before{background:var(--blue);}
+.fs-total::before{background:#4a5468;}.fs-cant::before{background:var(--red);}.fs-able::before{background:var(--amber);}
+.fs-done::before{background:var(--green);}.fs-pending::before{background:var(--purple);}.fs-pct::before{background:var(--blue);}
 .fs-pct{background:rgba(59,130,246,.05);}
 .fs-lbl{font-size:10px;color:var(--txt2);font-weight:500;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;}
 .fs-val{font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace;line-height:1;margin-bottom:3px;}
-.fs-total .fs-val{color:var(--txt);} .fs-cant .fs-val{color:var(--red);}
-.fs-able .fs-val{color:var(--amber);} .fs-done .fs-val{color:var(--green);}
-.fs-pending .fs-val{color:var(--purple);} .fs-pct .fs-val{color:var(--blue);font-size:36px;}
+.fs-total .fs-val{color:var(--txt);}.fs-cant .fs-val{color:var(--red);}.fs-able .fs-val{color:var(--amber);}
+.fs-done .fs-val{color:var(--green);}.fs-pending .fs-val{color:var(--purple);}.fs-pct .fs-val{color:var(--blue);font-size:36px;}
 .fs-sub{font-size:10px;color:var(--txt3);}
 .fs-formula{font-size:10px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;margin-top:5px;padding:2px 6px;background:var(--surface2);border-radius:4px;display:inline-block;}
-
-/* PROGRESS */
 .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:20px;}
 .progress-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;}
 .progress-title{font-size:13px;font-weight:500;color:var(--txt);}
@@ -65,14 +52,10 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--txt
 .progress-legend{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap;}
 .p-leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);}
 .p-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-
-/* SUITE CARDS */
 .suite-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
 .suite-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden;}
 .suite-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.suite-card.zephyr::after{background:var(--blue);}
-.suite-card.dev::after{background:var(--teal);}
-.suite-card.smoke::after{background:var(--orange);}
+.suite-card.zephyr::after{background:var(--blue);}.suite-card.dev::after{background:var(--teal);}.suite-card.smoke::after{background:var(--orange);}
 .sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
 .sc-name{font-size:14px;font-weight:700;}
 .sc-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;font-family:'IBM Plex Mono',monospace;}
@@ -80,41 +63,31 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--txt
 .suite-card.dev .sc-badge{background:rgba(20,184,166,.15);color:#2dd4bf;}
 .suite-card.smoke .sc-badge{background:rgba(249,115,22,.15);color:#fb923c;}
 .sc-pct{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;margin-bottom:4px;}
-.suite-card.zephyr .sc-pct{color:var(--blue);}
-.suite-card.dev .sc-pct{color:var(--teal);}
-.suite-card.smoke .sc-pct{color:var(--orange);}
+.suite-card.zephyr .sc-pct{color:var(--blue);}.suite-card.dev .sc-pct{color:var(--teal);}.suite-card.smoke .sc-pct{color:var(--orange);}
 .sc-eq{font-size:10px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;margin-bottom:10px;}
 .sc-track{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:12px;}
 .sc-fill{height:100%;border-radius:3px;}
-.suite-card.zephyr .sc-fill{background:var(--blue);}
-.suite-card.dev .sc-fill{background:var(--teal);}
-.suite-card.smoke .sc-fill{background:var(--orange);}
+.suite-card.zephyr .sc-fill{background:var(--blue);}.suite-card.dev .sc-fill{background:var(--teal);}.suite-card.smoke .sc-fill{background:var(--orange);}
 .sc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
 .sc-stat{background:var(--surface2);border-radius:6px;padding:7px 8px;}
 .sc-stat-val{font-size:15px;font-weight:600;font-family:'IBM Plex Mono',monospace;}
 .sc-stat-lbl{font-size:10px;color:var(--txt3);margin-top:1px;}
-
-/* PROJECT CARDS */
 .proj-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
 .proj-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden;}
 .proj-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.proj-card.api::after{background:var(--teal);}
-.proj-card.vgf::after{background:var(--amber);}
-.proj-card.vgp::after{background:var(--blue);}
+.proj-card.api::after{background:var(--teal);}.proj-card.vgf::after{background:var(--amber);}.proj-card.vgp::after{background:var(--blue);}
 .pc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;}
 .pc-name{font-size:16px;font-weight:700;}
 .pc-pct{font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
-.proj-card.api .pc-pct{color:var(--teal);} .proj-card.vgf .pc-pct{color:var(--amber);} .proj-card.vgp .pc-pct{color:var(--blue);}
+.proj-card.api .pc-pct{color:var(--teal);}.proj-card.vgf .pc-pct{color:var(--amber);}.proj-card.vgp .pc-pct{color:var(--blue);}
 .pc-eq{font-size:10px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;margin-bottom:10px;}
 .pc-track{height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:12px;}
 .pc-fill{height:100%;border-radius:4px;}
-.proj-card.api .pc-fill{background:var(--teal);} .proj-card.vgf .pc-fill{background:var(--amber);} .proj-card.vgp .pc-fill{background:var(--blue);}
+.proj-card.api .pc-fill{background:var(--teal);}.proj-card.vgf .pc-fill{background:var(--amber);}.proj-card.vgp .pc-fill{background:var(--blue);}
 .pc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
 .pc-stat{background:var(--surface2);border-radius:6px;padding:7px 9px;}
 .pc-stat-val{font-size:15px;font-weight:600;font-family:'IBM Plex Mono',monospace;}
 .pc-stat-lbl{font-size:10px;color:var(--txt3);margin-top:1px;}
-
-/* CHARTS */
 .charts-row{display:grid;grid-template-columns:1fr 1fr 250px;gap:14px;margin-bottom:20px;}
 .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
 .chart-title{font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
@@ -127,8 +100,6 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--txt
 .dl-left{display:flex;align-items:center;gap:6px;color:var(--txt2);}
 .dl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .dl-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--txt);}
-
-/* TABLE */
 .table-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;}
 .table-hdr{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
 .table-hdr-title{font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;}
@@ -153,21 +124,16 @@ tbody tr:hover{background:var(--surface2);}
 tbody tr:last-child{border-bottom:none;}
 td{padding:8px 12px;font-size:11px;}
 .key-cell{font-family:'IBM Plex Mono',monospace;font-size:11px;white-space:nowrap;}
-.key-cell.api{color:var(--teal);} .key-cell.vgf{color:var(--amber);} .key-cell.vgp{color:var(--blue);}
+.key-cell.api{color:var(--teal);}.key-cell.vgf{color:var(--amber);}.key-cell.vgp{color:var(--blue);}
 .name-cell{color:var(--txt);max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .folder-cell{color:var(--txt2);font-size:11px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
 .b-auto{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2);}
 .b-manual{background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.2);}
-.b-approved{background:rgba(34,197,94,.1);color:#4ade80;}
-.b-draft{background:rgba(139,92,246,.1);color:#a78bfa;}
-.b-automated{background:rgba(34,197,94,.1);color:#4ade80;}
-.b-can{background:rgba(245,158,11,.1);color:#fbbf24;}
-.b-cant{background:rgba(239,68,68,.1);color:#f87171;}
+.b-approved{background:rgba(34,197,94,.1);color:#4ade80;}.b-draft{background:rgba(139,92,246,.1);color:#a78bfa;}
+.b-automated{background:rgba(34,197,94,.1);color:#4ade80;}.b-can{background:rgba(245,158,11,.1);color:#fbbf24;}.b-cant{background:rgba(239,68,68,.1);color:#f87171;}
 .proj-pill{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;font-family:'IBM Plex Mono',monospace;}
-.pp-api{background:rgba(20,184,166,.15);color:#2dd4bf;}
-.pp-vgf{background:rgba(245,158,11,.15);color:#fbbf24;}
-.pp-vgp{background:rgba(59,130,246,.15);color:#60a5fa;}
+.pp-api{background:rgba(20,184,166,.15);color:#2dd4bf;}.pp-vgf{background:rgba(245,158,11,.15);color:#fbbf24;}.pp-vgp{background:rgba(59,130,246,.15);color:#60a5fa;}
 .pagination{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--border);}
 .pg-info{font-size:11px;color:var(--txt3);font-family:'IBM Plex Mono',monospace;}
 .pg-btns{display:flex;gap:5px;}
@@ -178,79 +144,69 @@ td{padding:8px 12px;font-size:11px;}
 </style>
 </head>
 <body>
-
 <div class="hdr">
   <div class="hdr-left">
     <div class="hdr-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
     <div>
       <div class="hdr-title">Test Automation Coverage Dashboard</div>
-      <div class="hdr-sub">Zephyr Advanced + Dev Automation + Smoke · 3 Projects</div>
+      <div class="hdr-sub">Zephyr Advanced + Dev Automation + Smoke &middot; 3 Projects</div>
     </div>
     <div class="hdr-chips">
-      <span class="chip hi">931 total</span>
-      <span class="chip">API · 15</span>
-      <span class="chip">VGP · 439</span>
-      <span class="chip">VGF · 333</span>
-      <span class="chip">Dev · 93</span>
-      <span class="chip">Smoke · 51</span>
+      <span class="chip hi">949 total</span>
+      <span class="chip">API &middot; 15</span>
+      <span class="chip">VGP &middot; 457</span>
+      <span class="chip">VGF &middot; 333</span>
+      <span class="chip">Dev &middot; 93</span>
+      <span class="chip">Smoke &middot; 51</span>
     </div>
   </div>
   <div class="hdr-date">Updated: May 5, 2026</div>
 </div>
-
 <div class="main">
-
-  <!-- View Tabs -->
   <div class="tabs">
     <button class="tab active" onclick="switchView('all',this)">All Suites Combined</button>
     <button class="tab" onclick="switchView('zephyr',this)">Zephyr Only</button>
     <button class="tab" onclick="switchView('dev',this)">Dev Automation</button>
     <button class="tab" onclick="switchView('smoke',this)">Smoke Tests</button>
   </div>
-
-  <!-- Funnel -->
   <div class="sec-label">Automation Funnel</div>
   <div class="funnel-row" id="funnelRow"></div>
-
-  <!-- Progress bar -->
   <div class="progress-card">
     <div class="progress-header">
       <div>
         <div class="progress-title" id="progressTitle">Overall Automation Coverage</div>
-        <div class="progress-hint">% = Automated ÷ Automatable &nbsp;(Can't Automate excluded from calculation)</div>
+        <div class="progress-hint">% = Automated &divide; Automatable &nbsp;(Can't Automate excluded)</div>
       </div>
       <div class="progress-right">
-        <div class="progress-pct" id="progressPct">49%</div>
-        <div class="progress-eq" id="progressEq">330 ÷ 675</div>
+        <div class="progress-pct" id="progressPct">48%</div>
+        <div class="progress-eq" id="progressEq">332 &divide; 693</div>
       </div>
     </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:49%"></div></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:48%"></div></div>
     <div class="progress-legend">
-      <div class="p-leg"><div class="p-dot" style="background:#22c55e"></div><span id="leg1">330 automated</span></div>
-      <div class="p-leg"><div class="p-dot" style="background:#8b5cf6"></div><span id="leg2">345 pending</span></div>
+      <div class="p-leg"><div class="p-dot" style="background:#22c55e"></div><span id="leg1">332 automated</span></div>
+      <div class="p-leg"><div class="p-dot" style="background:#8b5cf6"></div><span id="leg2">361 pending</span></div>
       <div class="p-leg"><div class="p-dot" style="background:#ef4444"></div><span id="leg3">256 can't automate</span></div>
     </div>
   </div>
-
-  <!-- Suite cards -->
   <div class="sec-label">By Test Suite</div>
   <div class="suite-row">
     <div class="suite-card zephyr">
       <div class="sc-top"><div class="sc-name">Zephyr Tests</div><span class="sc-badge">API + VGP + VGF</span></div>
-      <div class="sc-pct">34%</div>
-      <div class="sc-eq">210 automated ÷ 555 automatable</div>
-      <div class="sc-track"><div class="sc-fill" style="width:34%"></div></div>
+      <div class="sc-pct">37%</div>
+      <div class="sc-eq">212 automated &divide; 573 automatable</div>
+      <div class="sc-track"><div class="sc-fill" style="width:37%"></div></div>
       <div class="sc-stats">
-        <div class="sc-stat"><div class="sc-stat-val">787</div><div class="sc-stat-lbl">Total</div></div>
-        <div class="sc-stat"><div class="sc-stat-val" style="color:#22c55e">210</div><div class="sc-stat-lbl">Automated</div></div>
-        <div class="sc-stat"><div class="sc-stat-val" style="color:#8b5cf6">345</div><div class="sc-stat-lbl">Pending</div></div>
+        <div class="sc-stat"><div class="sc-stat-val">805</div><div class="sc-stat-lbl">Total</div></div>
+        <div class="sc-stat"><div class="sc-stat-val" style="color:#22c55e">212</div><div class="sc-stat-lbl">Automated</div></div>
+        <div class="sc-stat"><div class="sc-stat-val" style="color:#8b5cf6">361</div><div class="sc-stat-lbl">Pending</div></div>
         <div class="sc-stat"><div class="sc-stat-val" style="color:#ef4444">232</div><div class="sc-stat-lbl">Can't Auto</div></div>
       </div>
     </div>
     <div class="suite-card dev">
-      <div class="sc-top"><div class="sc-name">Dev Automation</div><span class="sc-badge">100% automated</span></div>
+      <div class="sc-top"><div class="sc-name">Dev Automation</div><span class="sc-badge">100% complete</span></div>
       <div class="sc-pct">100%</div>
-      <div class="sc-eq">93 automated ÷ 93 automatable</div>
+      <div class="sc-eq">93 automated &divide; 93 automatable</div>
       <div class="sc-track"><div class="sc-fill" style="width:100%"></div></div>
       <div class="sc-stats">
         <div class="sc-stat"><div class="sc-stat-val">93</div><div class="sc-stat-lbl">Total</div></div>
@@ -262,7 +218,7 @@ td{padding:8px 12px;font-size:11px;}
     <div class="suite-card smoke">
       <div class="sc-top"><div class="sc-name">Smoke Tests</div><span class="sc-badge">27 auto + 24 manual</span></div>
       <div class="sc-pct">100%</div>
-      <div class="sc-eq">27 automated ÷ 27 automatable</div>
+      <div class="sc-eq">27 automated &divide; 27 automatable</div>
       <div class="sc-track"><div class="sc-fill" style="width:100%"></div></div>
       <div class="sc-stats">
         <div class="sc-stat"><div class="sc-stat-val">51</div><div class="sc-stat-lbl">Total</div></div>
@@ -272,13 +228,11 @@ td{padding:8px 12px;font-size:11px;}
       </div>
     </div>
   </div>
-
-  <!-- Zephyr per-project -->
   <div class="sec-label">Zephyr Projects Breakdown</div>
   <div class="proj-cards">
     <div class="proj-card api">
       <div class="pc-top"><div class="pc-name">API</div><div class="pc-pct">100%</div></div>
-      <div class="pc-eq">13 automated ÷ 13 automatable</div>
+      <div class="pc-eq">13 automated &divide; 13 automatable</div>
       <div class="pc-track"><div class="pc-fill" style="width:100%"></div></div>
       <div class="pc-stats">
         <div class="pc-stat"><div class="pc-stat-val">15</div><div class="pc-stat-lbl">Total</div></div>
@@ -291,7 +245,7 @@ td{padding:8px 12px;font-size:11px;}
     </div>
     <div class="proj-card vgf">
       <div class="pc-top"><div class="pc-name">VGF</div><div class="pc-pct">44%</div></div>
-      <div class="pc-eq">95 automated ÷ 216 automatable</div>
+      <div class="pc-eq">95 automated &divide; 216 automatable</div>
       <div class="pc-track"><div class="pc-fill" style="width:44%"></div></div>
       <div class="pc-stats">
         <div class="pc-stat"><div class="pc-stat-val">333</div><div class="pc-stat-lbl">Total</div></div>
@@ -303,21 +257,19 @@ td{padding:8px 12px;font-size:11px;}
       </div>
     </div>
     <div class="proj-card vgp">
-      <div class="pc-top"><div class="pc-name">VGP</div><div class="pc-pct">31%</div></div>
-      <div class="pc-eq">102 automated ÷ 326 automatable</div>
-      <div class="pc-track"><div class="pc-fill" style="width:31%"></div></div>
+      <div class="pc-top"><div class="pc-name">VGP</div><div class="pc-pct">30%</div></div>
+      <div class="pc-eq">104 automated &divide; 344 automatable</div>
+      <div class="pc-track"><div class="pc-fill" style="width:30%"></div></div>
       <div class="pc-stats">
-        <div class="pc-stat"><div class="pc-stat-val">439</div><div class="pc-stat-lbl">Total</div></div>
-        <div class="pc-stat"><div class="pc-stat-val" style="color:#22c55e">102</div><div class="pc-stat-lbl">Automated</div></div>
-        <div class="pc-stat"><div class="pc-stat-val" style="color:#8b5cf6">224</div><div class="pc-stat-lbl">Pending</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">457</div><div class="pc-stat-lbl">Total</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#22c55e">104</div><div class="pc-stat-lbl">Automated</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#8b5cf6">240</div><div class="pc-stat-lbl">Pending</div></div>
         <div class="pc-stat"><div class="pc-stat-val" style="color:#ef4444">113</div><div class="pc-stat-lbl">Can't Auto</div></div>
-        <div class="pc-stat"><div class="pc-stat-val" style="color:#f59e0b">326</div><div class="pc-stat-lbl">Automatable</div></div>
-        <div class="pc-stat"><div class="pc-stat-val" style="color:#3b82f6">31%</div><div class="pc-stat-lbl">Coverage</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#f59e0b">344</div><div class="pc-stat-lbl">Automatable</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:#3b82f6">30%</div><div class="pc-stat-lbl">Coverage</div></div>
       </div>
     </div>
   </div>
-
-  <!-- Charts -->
   <div class="sec-label">Visual Breakdown</div>
   <div class="charts-row">
     <div class="chart-card">
@@ -332,28 +284,26 @@ td{padding:8px 12px;font-size:11px;}
       <div class="chart-title">Overall Distribution</div>
       <div class="donut-wrap">
         <canvas id="donutChart"></canvas>
-        <div class="donut-center"><div class="dc-pct" id="donutPct">49%</div><div class="dc-lbl">coverage</div></div>
+        <div class="donut-center"><div class="dc-pct" id="donutPct">48%</div><div class="dc-lbl">coverage</div></div>
       </div>
       <div id="donutLegend"></div>
     </div>
   </div>
-
-  <!-- Table (Zephyr rows) -->
   <div class="sec-label">Zephyr Test Case Explorer</div>
   <div class="table-card">
     <div class="table-hdr">
-      <div class="table-hdr-title">Zephyr Test Cases</div>
+      <div class="table-hdr-title">Zephyr Test Cases (805)</div>
       <div class="tbl-filters">
         <input class="srch" type="text" id="srchInput" placeholder="Search key or name...">
-        <button class="fbtn fa"  id="btn-all"     onclick="setF('all')">All</button>
-        <button class="fbtn ft"  id="btn-API"     onclick="setF('API')">API</button>
-        <button class="fbtn fv"  id="btn-VGF"     onclick="setF('VGF')">VGF</button>
-        <button class="fbtn fa"  id="btn-VGP"     onclick="setF('VGP')" style="background:rgba(59,130,246,.08);border-color:#3b82f6;color:#60a5fa">VGP</button>
-        <button class="fbtn fg"  id="btn-auto"    onclick="setF('auto')">Automated</button>
-        <button class="fbtn fp"  id="btn-pending" onclick="setF('pending')">Pending</button>
-        <button class="fbtn fr"  id="btn-cant"    onclick="setF('cant')">Can't Automate</button>
+        <button class="fbtn fa" id="btn-all"     onclick="setF('all')">All</button>
+        <button class="fbtn ft" id="btn-API"     onclick="setF('API')">API</button>
+        <button class="fbtn fv" id="btn-VGF"     onclick="setF('VGF')">VGF</button>
+        <button class="fbtn"    id="btn-VGP"     onclick="setF('VGP')" style="background:rgba(59,130,246,.08);border:1px solid #3b82f6;color:#60a5fa">VGP</button>
+        <button class="fbtn fg" id="btn-auto"    onclick="setF('auto')">Automated</button>
+        <button class="fbtn fp" id="btn-pending" onclick="setF('pending')">Pending</button>
+        <button class="fbtn fr" id="btn-cant"    onclick="setF('cant')">Can't Automate</button>
       </div>
-      <div class="cnt-lbl" id="cntLbl">787 results</div>
+      <div class="cnt-lbl" id="cntLbl">805 results</div>
     </div>
     <div style="overflow-x:auto">
       <table>
@@ -368,36 +318,30 @@ td{padding:8px 12px;font-size:11px;}
     <div class="pagination">
       <div class="pg-info" id="pgInfo"></div>
       <div class="pg-btns">
-        <button class="pg-btn" id="prevBtn" onclick="changePg(-1)">← Prev</button>
-        <button class="pg-btn" id="nextBtn" onclick="changePg(1)">Next →</button>
+        <button class="pg-btn" id="prevBtn" onclick="changePg(-1)">&larr; Prev</button>
+        <button class="pg-btn" id="nextBtn" onclick="changePg(1)">Next &rarr;</button>
       </div>
     </div>
   </div>
 </div>
-
 <script>
-const ALL_STATS = {
-  all:    {total:931, cant:256, automatable:675, automated:330, pending:345, pct:49},
-  zephyr: {total:787, cant:232, automatable:555, automated:210, pending:345, pct:34},
-  dev:    {total:93,  cant:0,   automatable:93,  automated:93,  pending:0,   pct:100},
-  smoke:  {total:51,  cant:24,  automatable:27,  automated:27,  pending:0,   pct:100},
-};
-const PROJ_STATS = {
-  API: {total:15,  cant:2,   automatable:13,  automated:13,  pending:0,   pct:100},
-  VGF: {total:333, cant:117, automatable:216, automated:95,  pending:121, pct:44},
-  VGP: {total:439, cant:113, automatable:326, automated:102, pending:224, pct:31},
+const ALL_STATS={
+  all:   {total:949,cant:256,automatable:693,automated:332,pending:361,pct:48},
+  zephyr:{total:805,cant:232,automatable:573,automated:212,pending:361,pct:37},
+  dev:   {total:93, cant:0,  automatable:93, automated:93, pending:0,  pct:100},
+  smoke: {total:51, cant:24, automatable:27, automated:27, pending:0,  pct:100},
 };
 const FOLDER_STATS=[
-  {folder:'VGP',                      pct:33, color:'rgba(245,158,11,.75)'},
-  {folder:'Fulfillment - Manual',     pct:0,  color:'rgba(239,68,68,.7)'},
-  {folder:'Fulfillment - Automation', pct:92, color:'rgba(34,197,94,.75)'},
-  {folder:'Admin Portal',             pct:15, color:'rgba(245,158,11,.7)'},
-  {folder:'Monitoring',               pct:53, color:'rgba(59,130,246,.75)'},
-  {folder:'IR - RT suite',            pct:0,  color:'rgba(239,68,68,.7)'},
-  {folder:'Findings Summary',         pct:29, color:'rgba(245,158,11,.7)'},
-  {folder:'Test Automation',          pct:0,  color:'rgba(239,68,68,.7)'},
-  {folder:'API Platform',             pct:100,color:'rgba(34,197,94,.75)'},
-  {folder:'SF / Automation',          pct:100,color:'rgba(34,197,94,.75)'},
+  {folder:'VGP',                     pct:33, color:'rgba(245,158,11,.75)'},
+  {folder:'Fulfillment - Manual',    pct:0,  color:'rgba(239,68,68,.7)'},
+  {folder:'Fulfillment - Auto',      pct:92, color:'rgba(34,197,94,.75)'},
+  {folder:'Admin Portal',            pct:16, color:'rgba(245,158,11,.7)'},
+  {folder:'Monitoring',              pct:50, color:'rgba(59,130,246,.75)'},
+  {folder:'IR - RT suite',           pct:0,  color:'rgba(239,68,68,.7)'},
+  {folder:'Findings Summary',        pct:29, color:'rgba(245,158,11,.7)'},
+  {folder:'Test Automation',         pct:0,  color:'rgba(239,68,68,.7)'},
+  {folder:'API Platform',            pct:100,color:'rgba(34,197,94,.75)'},
+  {folder:'SF / Automation',         pct:100,color:'rgba(34,197,94,.75)'},
 ];
 const ROWS=[
 {key:"VGP-T4",name:"Verify Project-Subjects Page Displays Findings Correctly Admin+Client",project:"VGP",status:"Approved",folder:"Findings Summary",execType:"Manual",autoStatus:"Automated"},
@@ -1171,6 +1115,24 @@ const ROWS=[
 {key:"API-T250",name:"20251104-10:10:52 Verify that subject creation throws error with invalid last_name values on Custome",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
 {key:"API-T251",name:"20251104-10:10:33 Verify that subject creation throws error with invalid first_name values on Custom",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
 {key:"API-T266",name:"20251104-09:48:24 Verify Display of IDmission Request ID in Admin Portal",project:"API",status:"Approved",folder:"API Platform",execType:"Automation",autoStatus:"Automated"},
+{key:"VGP-T745",name:"Verify Client RBAC permissions based on assigned client role",project:"VGP",status:"Draft",folder:"VGP",execType:"Automation",autoStatus:"Automated"},
+{key:"VGP-T737",name:"Verify Users listing Page on Admin portal",project:"VGP",status:"Draft",folder:"Admin Portal",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T743",name:"Admin RBAC Testing-Verify page access based on assigned user role",project:"VGP",status:"Draft",folder:"Admin Portal",execType:"Automation",autoStatus:"Automated"},
+{key:"VGP-T739",name:"Subject Details Section – Complete Validation",project:"VGP",status:"Draft",folder:"Monitoring",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T740",name:"Admin Details Section – Complete Validation",project:"VGP",status:"Draft",folder:"Monitoring",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T741",name:"Admin Notes – Complete Validation",project:"VGP",status:"Draft",folder:"Monitoring",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T742",name:"Fulfillment Sync & Cross-Alert-Type Consistency",project:"VGP",status:"Draft",folder:"Monitoring",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T725",name:"Verify end-to-end New Monitoring Order flow creation successfully",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T726",name:"Verify end-to-end Add Subjects flow for existing Monitoring Group",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T727",name:"Verify end-to-end Admin Account Subject Details update flow for Individual and Entity subjects",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T728",name:"Verify end-to-end Admin Add Subjects flow for Monitoring Group",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T729",name:"Verify end-to-end Admin Edit Group functionality from Group Detail page",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T730",name:"Verify end-to-end Admin Monitoring New Order flow",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T731",name:"Verify end-to-end Admin Monitoring Products List functionality",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T732",name:"Verify end-to-end Bulk Edit functionality in Monitoring Intake flow",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T733",name:"Verify end-to-end flow for adding Products or Groups to existing Monitoring Subject",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T736",name:"Verify end-to-end Monitoring Subjects Excel Template download, validation, and upload functionality",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
+{key:"VGP-T746",name:"Verify successful monitoring submission flow after clicking Submit button",project:"VGP",status:"Draft",folder:"New Monitoring intake",execType:"Manual",autoStatus:"Can be Automated"},
 {key:"VGF-T556",name:"User Story: Dynamic Search Checklist - Interactive Evidence Pages",project:"VGF",status:"Approved",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
 {key:"VGF-T567",name:"Verify updated top navigation and script notes icon functionality on the Evidence Page",project:"VGF",status:"Approved",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
 {key:"VGF-T590",name:"Verify Qubit Job Links in the Search Checklist and Evidence Page, including RBAC (Role-Based Access)",project:"VGF",status:"Approved",folder:"Fulfillment - Manual",execType:"Manual",autoStatus:"Cant Automate"},
@@ -1188,47 +1150,32 @@ const ROWS=[
 {key:"VGP-T683",name:"AdminProjectSerializers Optimization Test",project:"VGP",status:"Draft",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"},
 {key:"VGP-T684",name:"Concurrent Order Listing Requests",project:"VGP",status:"Draft",folder:"VGP",execType:"Manual",autoStatus:"Can be Automated"}
 ];
-
-// ── CHARTS ────────────────────────────────────────────────────────────────
-new Chart(document.getElementById('stackedChart'),{
-  type:'bar',
-  data:{
-    labels:['Dev Auto','Smoke Auto','Smoke Manual','API','VGF','VGP'],
+new Chart(document.getElementById('stackedChart'),{type:'bar',
+  data:{labels:['Dev Auto','Smoke Auto','Smoke Manual','API','VGF','VGP'],
     datasets:[
-      {label:'Automated',   data:[93,27,0,13,95,102], backgroundColor:'rgba(34,197,94,.75)',  borderRadius:3},
-      {label:'Pending',     data:[0,0,0,0,121,224],   backgroundColor:'rgba(139,92,246,.65)', borderRadius:3},
-      {label:"Can't Auto", data:[0,0,24,2,117,113],  backgroundColor:'rgba(239,68,68,.6)',   borderRadius:3},
-    ]
-  },
+      {label:'Automated',  data:[93,27,0,13,95,104],backgroundColor:'rgba(34,197,94,.75)',borderRadius:3},
+      {label:'Pending',    data:[0,0,0,0,121,240],  backgroundColor:'rgba(139,92,246,.65)',borderRadius:3},
+      {label:"Can't Auto", data:[0,0,24,2,117,113], backgroundColor:'rgba(239,68,68,.6)',  borderRadius:3},
+    ]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{labels:{color:'#8892a4',font:{size:10},boxWidth:9}}},
-    scales:{
-      x:{stacked:true,ticks:{color:'#8892a4',font:{size:10}},grid:{display:false},border:{color:'#252d42'}},
-      y:{stacked:true,ticks:{color:'#8892a4',font:{size:9}}, grid:{color:'rgba(37,45,66,.6)'},border:{display:false}}
-    }}
+    scales:{x:{stacked:true,ticks:{color:'#8892a4',font:{size:10}},grid:{display:false},border:{color:'#252d42'}},
+            y:{stacked:true,ticks:{color:'#8892a4',font:{size:9}},grid:{color:'rgba(37,45,66,.6)'},border:{display:false}}}}
 });
-new Chart(document.getElementById('folderChart'),{
-  type:'bar',
-  data:{
-    labels:FOLDER_STATS.map(f=>f.folder.length>22?f.folder.slice(0,22)+'…':f.folder),
-    datasets:[{data:FOLDER_STATS.map(f=>f.pct),backgroundColor:FOLDER_STATS.map(f=>f.color),borderRadius:4,borderSkipped:false}]
-  },
+new Chart(document.getElementById('folderChart'),{type:'bar',
+  data:{labels:FOLDER_STATS.map(f=>f.folder.length>20?f.folder.slice(0,20)+'...':f.folder),
+    datasets:[{data:FOLDER_STATS.map(f=>f.pct),backgroundColor:FOLDER_STATS.map(f=>f.color),borderRadius:4,borderSkipped:false}]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x}% automated`}}},
-    scales:{
-      x:{min:0,max:100,ticks:{color:'#8892a4',font:{size:9},callback:v=>v+'%'},grid:{color:'rgba(37,45,66,.6)'},border:{display:false}},
-      y:{ticks:{color:'#8892a4',font:{size:9}},grid:{display:false},border:{color:'#252d42'}}
-    }}
+    scales:{x:{min:0,max:100,ticks:{color:'#8892a4',font:{size:9},callback:v=>v+'%'},grid:{color:'rgba(37,45,66,.6)'},border:{display:false}},
+            y:{ticks:{color:'#8892a4',font:{size:9}},grid:{display:false},border:{color:'#252d42'}}}}
 });
-let donutChart=new Chart(document.getElementById('donutChart'),{
-  type:'doughnut',
+let donutChart=new Chart(document.getElementById('donutChart'),{type:'doughnut',
   data:{labels:['Automated','Pending',"Can't Automate"],
-    datasets:[{data:[330,345,256],backgroundColor:['#22c55e','#8b5cf6','#ef4444'],borderWidth:0,hoverOffset:4}]},
+    datasets:[{data:[332,361,256],backgroundColor:['#22c55e','#8b5cf6','#ef4444'],borderWidth:0,hoverOffset:4}]},
   options:{responsive:true,maintainAspectRatio:true,cutout:'68%',
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.parsed}`}}}}
 });
-
-// ── HELPERS ───────────────────────────────────────────────────────────────
 function renderDonutLegend(s){
   document.getElementById('donutLegend').innerHTML=
     `<div class="dl-item"><div class="dl-left"><div class="dl-dot" style="background:#22c55e"></div>Automated</div><div class="dl-num">${s.automated}</div></div>`+
@@ -1239,10 +1186,10 @@ function renderFunnel(s,label){
   document.getElementById('funnelRow').innerHTML=
     `<div class="fs fs-total"><div class="fs-lbl">Total Tests</div><div class="fs-val">${s.total}</div><div class="fs-sub">${label}</div></div>`+
     `<div class="fs fs-cant"><div class="fs-lbl">Can't Automate</div><div class="fs-val">${s.cant}</div><div class="fs-sub">${Math.round(s.cant/s.total*100)}% of total</div><div class="fs-formula">excluded from %</div></div>`+
-    `<div class="fs fs-able"><div class="fs-lbl">Automatable</div><div class="fs-val">${s.automatable}</div><div class="fs-sub">total − can't automate</div><div class="fs-formula">${s.total} − ${s.cant}</div></div>`+
-    `<div class="fs fs-done"><div class="fs-lbl">Automated ✓</div><div class="fs-val">${s.automated}</div><div class="fs-sub">completed so far</div></div>`+
-    `<div class="fs fs-pending"><div class="fs-lbl">Pending</div><div class="fs-val">${s.pending}</div><div class="fs-sub">backlog remaining</div><div class="fs-formula">${s.automatable} − ${s.automated}</div></div>`+
-    `<div class="fs fs-pct"><div class="fs-lbl">Coverage %</div><div class="fs-val">${s.pct}%</div><div class="fs-sub">of automatable</div><div class="fs-formula">${s.automated} ÷ ${s.automatable}</div></div>`;
+    `<div class="fs fs-able"><div class="fs-lbl">Automatable</div><div class="fs-val">${s.automatable}</div><div class="fs-sub">total &minus; can't automate</div><div class="fs-formula">${s.total} &minus; ${s.cant}</div></div>`+
+    `<div class="fs fs-done"><div class="fs-lbl">Automated &#10003;</div><div class="fs-val">${s.automated}</div><div class="fs-sub">completed so far</div></div>`+
+    `<div class="fs fs-pending"><div class="fs-lbl">Pending</div><div class="fs-val">${s.pending}</div><div class="fs-sub">backlog remaining</div><div class="fs-formula">${s.automatable} &minus; ${s.automated}</div></div>`+
+    `<div class="fs fs-pct"><div class="fs-lbl">Coverage %</div><div class="fs-val">${s.pct}%</div><div class="fs-sub">of automatable</div><div class="fs-formula">${s.automated} &divide; ${s.automatable}</div></div>`;
 }
 function updateProgress(s,title){
   document.getElementById('progressPct').textContent=s.pct+'%';
@@ -1260,14 +1207,11 @@ function updateProgress(s,title){
 function switchView(v,btn){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  const s=ALL_STATS[v];
-  const labels={all:'All Suites Combined',zephyr:'Zephyr Tests (API + VGP + VGF)',dev:'Dev Automation Suite',smoke:'Smoke Test Suite'};
-  renderFunnel(s,labels[v]);
-  updateProgress(s,labels[v]+' Coverage');
+  const labels={all:'All Suites Combined',zephyr:'Zephyr Tests',dev:'Dev Automation Suite',smoke:'Smoke Test Suite'};
+  renderFunnel(ALL_STATS[v],labels[v]);
+  updateProgress(ALL_STATS[v],labels[v]+' Coverage');
   setF('all');
 }
-
-// ── TABLE ─────────────────────────────────────────────────────────────────
 let activeFilter='all',searchTerm='',currentPage=1;
 const PAGE_SIZE=25;
 function getFiltered(){
@@ -1284,8 +1228,7 @@ function asBadge(s){
   return'';
 }
 function renderTable(){
-  const filtered=getFiltered(),total=filtered.length;
-  const totalPages=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  const filtered=getFiltered(),total=filtered.length,totalPages=Math.max(1,Math.ceil(total/PAGE_SIZE));
   currentPage=Math.min(currentPage,totalPages);
   const start=(currentPage-1)*PAGE_SIZE,page=filtered.slice(start,start+PAGE_SIZE);
   document.getElementById('cntLbl').textContent=total+' results';
@@ -1300,7 +1243,7 @@ function renderTable(){
     <td><span class="proj-pill pp-${r.project.toLowerCase()}">${r.project}</span></td>
     <td class="name-cell" title="${r.name}">${r.name}</td>
     <td class="folder-cell">${r.folder}</td>
-    <td><span class="badge ${r.execType==='Automation'?'b-auto':'b-manual'}">${r.execType||'—'}</span></td>
+    <td><span class="badge ${r.execType==='Automation'?'b-auto':'b-manual'}">${r.execType||'&mdash;'}</span></td>
     <td>${asBadge(r.autoStatus)}</td>
     <td><span class="badge ${r.status==='Approved'?'b-approved':'b-draft'}">${r.status}</span></td>
   </tr>`).join('');
@@ -1308,15 +1251,12 @@ function renderTable(){
 function setF(f){
   activeFilter=f;currentPage=1;
   document.querySelectorAll('.fbtn').forEach(b=>b.className='fbtn');
-  const m={all:'fa',API:'ft',VGF:'fv',VGP:'fa',auto:'fg',pending:'fp',cant:'fr'};
+  const m={all:'fa',API:'ft',VGF:'fv',VGP:'',auto:'fg',pending:'fp',cant:'fr'};
   const btn=document.getElementById('btn-'+f);
-  if(btn)btn.className='fbtn '+(m[f]||'fa');
-  renderTable();
+  if(btn){btn.className='fbtn '+(m[f]||'fa');if(f==='VGP')btn.style.cssText='background:rgba(59,130,246,.15);border:1px solid #3b82f6;color:#60a5fa';}
 }
 function changePg(d){currentPage+=d;renderTable();}
 document.getElementById('srchInput').addEventListener('input',e=>{searchTerm=e.target.value.toLowerCase().trim();currentPage=1;renderTable();});
-
-// ── INIT ──────────────────────────────────────────────────────────────────
 renderFunnel(ALL_STATS.all,'All Suites Combined');
 renderDonutLegend(ALL_STATS.all);
 renderTable();
