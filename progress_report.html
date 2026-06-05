@@ -129,13 +129,13 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
   <div class="header fade-in">
     <div class="header-left">
       <div class="eyebrow">Daily Progress Report</div>
-      <div class="headline">Coverage hit<br><em>91%</em> today &mdash;<br>90% milestone crossed!</div>
+      <div class="headline">Coverage hit<br><em>97%</em> today &mdash;<br>Near-complete!</div>
       <div class="subline">Zephyr Advanced &middot; API + VGP + VGF + Dev Auto + Smoke</div>
     </div>
     <div class="header-right">
       <div class="date-block">
-        <span>Yesterday &mdash; May 30, 2026</span>
-        <span>Today &nbsp;&nbsp;&nbsp;&nbsp;&mdash; Jun 2, 2026</span>
+        <span>Yesterday &mdash; Jun 2, 2026</span>
+        <span>Today &nbsp;&nbsp;&nbsp;&nbsp;&mdash; Jun 3, 2026</span>
         <span style="margin-top:8px;color:var(--today)">&#9679; Live data</span>
       </div>
     </div>
@@ -144,59 +144,71 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
   <div class="delta-hero">
     <div class="hero-block">
       <div class="hero-label yes">Yesterday</div>
-      <div class="hero-date">May 30, 2026</div>
-      <div class="hero-pct yes">89%</div>
-      <div class="hero-sub">522 &divide; 589 automatable</div>
-      <div class="hero-detail">795 total &middot; 206 can't automate</div>
+      <div class="hero-date">Jun 2, 2026</div>
+      <div class="hero-pct yes">91%</div>
+      <div class="hero-sub">540 &divide; 596 automatable</div>
+      <div class="hero-detail">802 total &middot; 206 can't automate</div>
     </div>
     <div class="delta-center">
       <div class="delta-arrow">&#8594;</div>
-      <div class="delta-value">+2%</div>
+      <div class="delta-value">+6%</div>
       <div class="delta-label">improvement</div>
     </div>
     <div class="hero-block">
       <div class="hero-label tod">Today</div>
-      <div class="hero-date">Jun 2, 2026</div>
-      <div class="hero-pct tod">91%</div>
-      <div class="hero-sub">540 &divide; 596 automatable</div>
-      <div class="hero-detail">802 total &middot; 206 can't automate</div>
+      <div class="hero-date">Jun 3, 2026</div>
+      <div class="hero-pct tod">97%</div>
+      <div class="hero-sub">549 &divide; 564 automatable</div>
+      <div class="hero-detail">785 total &middot; 221 can't automate &middot; 15 Fix Version excl.</div>
     </div>
   </div>
 
-  <div class="compare-card">
+  
+<div style="background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(245,158,11,.02));border:1px solid rgba(245,158,11,.3);border-radius:14px;padding:14px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px">
+  <div style="font-size:22px">&#9888;</div>
+  <div>
+    <div style="font-size:12px;font-weight:700;color:#f59e0b;margin-bottom:3px">Fix Version Cases Excluded from This Report</div>
+    <div style="font-size:11px;color:#7a8aaa">15 test cases with a Fix Version tag (v3.1.0: 11 VGF-Manual cases &middot; v5.0.6: 4 VGP cases) are excluded from main metrics. All are &ldquo;Can be Automated&rdquo; &mdash; pending version release. Coverage is calculated on the remaining <strong style="color:#e2e8f0">785 test cases</strong>.</div>
+  </div>
+  <div style="flex-shrink:0;text-align:center;padding:8px 18px;background:rgba(245,158,11,.1);border-radius:10px;border:1px solid rgba(245,158,11,.2)">
+    <div style="font-family:monospace;font-size:20px;font-weight:700;color:#f59e0b">15</div>
+    <div style="font-size:10px;color:#7a8aaa;margin-top:2px">excluded</div>
+  </div>
+</div>
+<div class="compare-card">
     <div class="compare-title">Coverage Progression</div>
     <div class="compare-row">
       <div class="cr-header">
         <div class="cr-label"><div class="cr-dot" style="background:var(--yesterday)"></div>Yesterday &mdash; Overall</div>
-        <div class="cr-meta">522 / 589</div>
+        <div class="cr-meta">540 / 596</div>
       </div>
-      <div class="cr-track"><div class="cr-fill yes" style="width:89%"></div></div>
-      <div class="cr-change nc">89%</div>
+      <div class="cr-track"><div class="cr-fill yes" style="width:91%"></div></div>
+      <div class="cr-change nc">91%</div>
     </div>
     <div class="compare-row">
       <div class="cr-header">
         <div class="cr-label"><div class="cr-dot" style="background:var(--today)"></div>Today &mdash; Overall</div>
-        <div class="cr-meta">540 / 596</div>
+        <div class="cr-meta">549 / 564</div>
       </div>
-      <div class="cr-track"><div class="cr-fill tod" style="width:91%"></div></div>
-      <div class="cr-change">91% &nbsp;&#8593; +2%</div>
+      <div class="cr-track"><div class="cr-fill tod" style="width:97%"></div></div>
+      <div class="cr-change">97% &nbsp;&#8593; +6%</div>
     </div>
     <div style="height:1px;background:var(--border);margin:18px 0"></div>
     <div class="compare-row">
       <div class="cr-header">
         <div class="cr-label"><div class="cr-dot" style="background:#818cf8"></div>Yesterday &mdash; Zephyr only</div>
-        <div class="cr-meta">405 / 472</div>
+        <div class="cr-meta">423 / 479</div>
       </div>
-      <div class="cr-track"><div class="cr-fill yes" style="width:86%"></div></div>
-      <div class="cr-change nc">86%</div>
+      <div class="cr-track"><div class="cr-fill yes" style="width:88%"></div></div>
+      <div class="cr-change nc">88%</div>
     </div>
     <div class="compare-row">
       <div class="cr-header">
         <div class="cr-label"><div class="cr-dot" style="background:var(--today)"></div>Today &mdash; Zephyr only</div>
-        <div class="cr-meta">423 / 479</div>
+        <div class="cr-meta">432 / 447</div>
       </div>
-      <div class="cr-track"><div class="cr-fill tod" style="width:88%"></div></div>
-      <div class="cr-change">88% &nbsp;&#8593; +2%</div>
+      <div class="cr-track"><div class="cr-fill tod" style="width:97%"></div></div>
+      <div class="cr-change">97% &nbsp;&#8593; +9%</div>
     </div>
   </div>
 
@@ -204,19 +216,19 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
     <div class="metric-card green">
       <div class="m-label">Automated Tests</div>
       <div class="m-row">
-        <div class="m-col"><div class="m-val yes">522</div><div class="m-sub">yesterday</div></div>
+        <div class="m-col"><div class="m-val yes">540</div><div class="m-sub">yesterday</div></div>
         <div class="m-divider"></div>
-        <div class="m-col"><div class="m-val" style="color:var(--today)">540</div><div class="m-sub">today</div></div>
-        <div class="m-delta">+18 &#10003;</div>
+        <div class="m-col"><div class="m-val" style="color:var(--today)">549</div><div class="m-sub">today</div></div>
+        <div class="m-delta">+9 &#10003;</div>
       </div>
     </div>
     <div class="metric-card indigo">
       <div class="m-label">Pending Automation</div>
       <div class="m-row">
-        <div class="m-col"><div class="m-val yes">67</div><div class="m-sub">yesterday</div></div>
+        <div class="m-col"><div class="m-val yes">56</div><div class="m-sub">yesterday</div></div>
         <div class="m-divider"></div>
-        <div class="m-col"><div class="m-val" style="color:var(--amber)">56</div><div class="m-sub">today</div></div>
-        <div class="m-delta">&minus;11 &#8595;</div>
+        <div class="m-col"><div class="m-val" style="color:var(--amber)">15</div><div class="m-sub">today</div></div>
+        <div class="m-delta">&minus;41 &#8595;</div>
       </div>
     </div>
     <div class="metric-card amber">
@@ -224,34 +236,34 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
       <div class="m-row">
         <div class="m-col"><div class="m-val yes">206</div><div class="m-sub">yesterday</div></div>
         <div class="m-divider"></div>
-        <div class="m-col"><div class="m-val" style="color:var(--amber)">206</div><div class="m-sub">today</div></div>
-        <div class="m-delta neu">= same</div>
+        <div class="m-col"><div class="m-val" style="color:var(--amber)">221</div><div class="m-sub">today</div></div>
+        <div class="m-delta neu">+15</div>
       </div>
     </div>
     <div class="metric-card green">
       <div class="m-label">VGP Coverage</div>
       <div class="m-row">
-        <div class="m-col"><div class="m-val yes">88%</div><div class="m-sub">yesterday</div></div>
+        <div class="m-col"><div class="m-val yes">92%</div><div class="m-sub">yesterday</div></div>
         <div class="m-divider"></div>
-        <div class="m-col"><div class="m-val" style="color:var(--today)">92%</div><div class="m-sub">today</div></div>
+        <div class="m-col"><div class="m-val" style="color:var(--today)">96%</div><div class="m-sub">today</div></div>
         <div class="m-delta">+4%</div>
       </div>
     </div>
     <div class="metric-card green">
       <div class="m-label">VGF Coverage</div>
       <div class="m-row">
-        <div class="m-col"><div class="m-val yes">83%</div><div class="m-sub">yesterday</div></div>
+        <div class="m-col"><div class="m-val yes">84%</div><div class="m-sub">yesterday</div></div>
         <div class="m-divider"></div>
-        <div class="m-col"><div class="m-val" style="color:var(--today)">84%</div><div class="m-sub">today</div></div>
-        <div class="m-delta">+1%</div>
+        <div class="m-col"><div class="m-val" style="color:var(--today)">98%</div><div class="m-sub">today</div></div>
+        <div class="m-delta">+14%</div>
       </div>
     </div>
     <div class="metric-card green">
       <div class="m-label">Coverage Delta</div>
       <div class="m-row" style="justify-content:center">
         <div style="text-align:center">
-          <div style="font-size:38px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--today);text-shadow:0 0 30px rgba(16,217,160,.4)">+2%</div>
-          <div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:'JetBrains Mono',monospace">89% &rarr; 91%</div>
+          <div style="font-size:38px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--today);text-shadow:0 0 30px rgba(16,217,160,.4)">+6%</div>
+          <div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:'JetBrains Mono',monospace">91% &rarr; 97%</div>
         </div>
       </div>
     </div>
@@ -293,37 +305,37 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
     </div>
     <div class="st-row">
       <div class="st-name"><div class="st-dot" style="background:#f59e0b"></div>VGF (Zephyr)</div>
-      <div class="st-cell yes">83%</div><div class="st-cell tod">84%</div>
-      <div class="st-cell" style="color:var(--today)">194/230</div><div class="st-cell">36</div>
-      <div><div class="st-pct-wrap"><div class="st-mini-track"><div class="st-mini-fill" style="width:84%;background:#f59e0b"></div></div><span class="st-delta-badge">+1%</span></div></div>
+      <div class="st-cell yes">84%</div><div class="st-cell tod">98%</div>
+      <div class="st-cell" style="color:var(--today)">199/204</div><div class="st-cell">5</div>
+      <div><div class="st-pct-wrap"><div class="st-mini-track"><div class="st-mini-fill" style="width:98%;background:#f59e0b"></div></div><span class="st-delta-badge">+14%</span></div></div>
     </div>
     <div class="st-row">
       <div class="st-name"><div class="st-dot" style="background:#6366f1"></div>VGP (Zephyr)</div>
-      <div class="st-cell yes">88%</div><div class="st-cell tod">92%</div>
-      <div class="st-cell" style="color:var(--today)">216/236</div><div class="st-cell">20</div>
-      <div><div class="st-pct-wrap"><div class="st-mini-track"><div class="st-mini-fill" style="width:92%;background:#6366f1"></div></div><span class="st-delta-badge">+4%</span></div></div>
+      <div class="st-cell yes">92%</div><div class="st-cell tod">96%</div>
+      <div class="st-cell" style="color:var(--today)">220/230</div><div class="st-cell">10</div>
+      <div><div class="st-pct-wrap"><div class="st-mini-track"><div class="st-mini-fill" style="width:96%;background:#6366f1"></div></div><span class="st-delta-badge">+4%</span></div></div>
     </div>
     <div class="st-row" style="background:rgba(16,217,160,.03);border-top:1px solid rgba(16,217,160,.15)">
       <div class="st-name" style="font-weight:700;color:var(--today)">Overall Total</div>
-      <div class="st-cell yes" style="font-weight:700;font-size:14px">89%</div>
-      <div class="st-cell tod" style="font-weight:700;font-size:14px">91%</div>
-      <div class="st-cell" style="color:var(--today);font-weight:600">540/596</div>
-      <div class="st-cell" style="font-weight:600">56</div>
-      <div><div class="st-pct-wrap"><div class="st-mini-track"><div class="st-mini-fill" style="width:91%;background:var(--today)"></div></div><span class="st-delta-badge">+2%</span></div></div>
+      <div class="st-cell yes" style="font-weight:700;font-size:14px">91%</div>
+      <div class="st-cell tod" style="font-weight:700;font-size:14px">97%</div>
+      <div class="st-cell" style="color:var(--today);font-weight:600">549/564</div>
+      <div class="st-cell" style="font-weight:600">15</div>
+      <div><div class="st-pct-wrap"><div class="st-mini-track"><div class="st-mini-fill" style="width:97%;background:var(--today)"></div></div><span class="st-delta-badge">+6%</span></div></div>
     </div>
   </div>
 
   <div class="insight-box">
     <div class="insight-icon">&#128161;</div>
     <div>
-      <div class="insight-title">Key Takeaways &mdash; Jun 2, 2026</div>
+      <div class="insight-title">Key Takeaways &mdash; Jun 3, 2026</div>
       <ul class="insight-list">
-        <li>&#127881; <strong style="color:var(--today)">91% overall</strong> &mdash; the <strong>90% milestone is officially crossed</strong>! 18 new tests automated (+2%). Only 56 cases remain pending across all suites.</li>
-        <li><strong>VGP</strong> hit <strong style="color:var(--today)">92%</strong> (+4%) &mdash; 216/236 automatable done. Admin Portal surged to 84%, Monitoring at 92%, New Monitoring Intake 70%. Only 20 cases pending total in VGP.</li>
-        <li><strong>VGF</strong> at <strong style="color:var(--today)">84%</strong> (+1%) &mdash; VGF Automation suite 100% complete (193/193). 36 VGF Manual &ldquo;Can be Automated&rdquo; cases remain the last major backlog.</li>
-        <li>Pending breakdown: VGF Manual can-be-auto (36), VGP Admin Portal (9), VGP Monitoring (4), VGP New Monitoring Intake (3), misc VGP (4).</li>
-        <li><strong>Dev Automation</strong> at <strong style="color:var(--today)">100%</strong> (90/90). <strong>Smoke</strong> 100% automatable (27/27); 24 permanently manual.</li>
-        <li>At current pace, <strong>95%+ is achievable within 2 batches</strong>. VGF Manual can-be-auto (36 cases) is the single biggest remaining opportunity.</li>
+        <li>&#127775; Overall coverage reached <strong style="color:var(--today)">97%</strong> (+6%) &mdash; <strong style="color:var(--today)">9 new tests automated</strong> this batch. Only <strong style="color:var(--today)">15 cases pending</strong> across all main suites.</li>
+        <li>&#9888; <strong style="color:#f59e0b">15 cases excluded</strong> with Fix Version set (11 &times; v3.1.0 in VGF-Manual, 4 &times; v5.0.6 in VGP). These are tracked separately and will be brought into main scope after their version ships.</li>
+        <li><strong>VGF</strong> surged to <strong style="color:var(--today)">98%</strong> (+14%) &mdash; 199/204 automatable done. VGF Automation 100% complete; only 5 VGF Manual pending.</li>
+        <li><strong>VGP</strong> reached <strong style="color:var(--today)">96%</strong> (+4%) &mdash; 220/230 done. Admin Portal 91%, Monitoring 98%, New Monitoring Intake 80%.</li>
+        <li>Remaining 15 pending: VGP Admin Portal (5), VGP misc (5), VGF Manual can-be-auto (5). IR-RT (46) permanently manual.</li>
+        <li><strong>Dev Automation</strong> 100% (90/90). <strong>Smoke</strong> 100% automatable (27/27). At current pace, <strong>100% of automatable scope is within reach next batch.</strong></li>
       </ul>
     </div>
   </div>
@@ -333,8 +345,8 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear
 new Chart(document.getElementById('trendChart'),{type:'bar',
   data:{labels:['Dev Auto','Smoke','API','VGF','VGP','Overall'],
     datasets:[
-      {label:'Yesterday',data:[100,100,100,83,88,89],backgroundColor:'rgba(99,102,241,.55)',borderColor:'#6366f1',borderWidth:1,borderRadius:4},
-      {label:'Today',    data:[100,100,100,84,92,91],backgroundColor:'rgba(16,217,160,.55)',borderColor:'#10d9a0',borderWidth:1,borderRadius:4},
+      {label:'Yesterday',data:[100,100,100,84,92,91],backgroundColor:'rgba(99,102,241,.55)',borderColor:'#6366f1',borderWidth:1,borderRadius:4},
+      {label:'Today',    data:[100,100,100,98,96,97],backgroundColor:'rgba(16,217,160,.55)',borderColor:'#10d9a0',borderWidth:1,borderRadius:4},
     ]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{labels:{color:'#7a8aa0',font:{size:11},boxWidth:10}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}%`}}},
@@ -344,8 +356,8 @@ new Chart(document.getElementById('trendChart'),{type:'bar',
 new Chart(document.getElementById('shiftChart'),{type:'doughnut',
   data:{labels:['Automated','Pending',"Can't Auto"],
     datasets:[
-      {label:'Yesterday',data:[522,67,206],backgroundColor:['rgba(99,102,241,.8)','rgba(99,102,241,.3)','rgba(244,63,94,.4)'],borderWidth:0,hoverOffset:4,radius:'55%',cutout:'30%'},
-      {label:'Today',    data:[540,56,206],backgroundColor:['rgba(16,217,160,.85)','rgba(139,92,246,.45)','rgba(244,63,94,.35)'],borderWidth:0,hoverOffset:4,radius:'90%',cutout:'65%'},
+      {label:'Yesterday',data:[540,56,206],backgroundColor:['rgba(99,102,241,.8)','rgba(99,102,241,.3)','rgba(244,63,94,.4)'],borderWidth:0,hoverOffset:4,radius:'55%',cutout:'30%'},
+      {label:'Today',    data:[549,15,221],backgroundColor:['rgba(16,217,160,.85)','rgba(139,92,246,.45)','rgba(244,63,94,.35)'],borderWidth:0,hoverOffset:4,radius:'90%',cutout:'65%'},
     ]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{position:'right',labels:{color:'#7a8aa0',font:{size:10},boxWidth:9,padding:10}},
